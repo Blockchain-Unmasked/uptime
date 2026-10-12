@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Sherlock app",
+    "url": "https://app.ocint.com/api/health",
+    "expect": ".status == \"ok\" and .environment == \"production\"",
+    "show": "{status, environment}"
+  },
+  {
+    "name": "Sherlock movement watcher",
+    "url": "https://app.ocint.com/api/health",
+    "expect": ".monitor.status != \"stale\"",
+    "show": ".monitor | {status, last_callback_at, seconds_since_last_callback}",
+    "only_when_up": true,
+    "cert": false
+  },
+  {
+    "name": "Evidence Vault",
+    "url": "https://vault.ocint.com/health",
+    "expect": ".status == \"ok\"",
+    "show": "{status}"
+  },
+  {
+    "name": "ocint.com",
+    "url": "https://ocint.com/",
+    "enabled": false
+  },
+  {
+    "name": "Sherlock staging",
+    "url": "https://staging.ocint.com/api/health",
+    "expect": ".status == \"ok\" and .environment == \"staging\"",
+    "show": "{status, environment}",
+    "enabled": false
+  }
+]

@@ -1,0 +1,46 @@
+name: Uptime
+
+on:
+  schedule:
+    # Every 5 minutes. GitHub runs schedules on a best-effort basis, so a run
+    # can start a few minutes late when Actions is busy.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write # the keep-alive commit below
+  issues: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check production
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ALERT_MENTIONS: ${{ vars.ALERT_MENTIONS }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: ./check.sh
+
+      # GitHub turns off scheduled workflows in a public repo after 60 days
+      # without a commit. Commit a date stamp when the last commit is 45 days
+      # old so the checks never stop on their own.
+      - name: Keep the schedule running
+        if: always()
+        run: |
+          last="$(git log -1 --format=%ct)"
+          if (( $(date +%s) - last > 45 * 86400 )); then
+            date -u +%Y-%m-%d > .keepalive
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .keepalive
+            git commit -m "Keep the uptime schedule running"
+            git push
+          fi
