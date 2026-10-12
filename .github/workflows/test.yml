@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Lint
         run: shellcheck check.sh tests/run.sh tests/fake-gh
-      - name: Targets file is valid JSON
-        run: jq -e 'type == "array" and all(.[]; has("name") and has("url"))' targets.json
+      - name: Targets file is valid
+        run: ./check.sh --validate
       - name: Scenarios
         run: ./tests/run.sh
