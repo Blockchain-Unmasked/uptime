@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Stands in for the gh CLI: `issue list` prints $FAKE_ISSUES, every other call
+# is appended to $FAKE_GH_LOG as one line (newlines in bodies become spaces).
+if [[ "$1 $2" == "issue list" ]]; then
+  cat "$FAKE_ISSUES"
+else
+  args="$*"
+  printf '%s\n' "${args//$'\n'/ }" >>"$FAKE_GH_LOG"
+fi
