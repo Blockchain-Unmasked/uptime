@@ -14,6 +14,14 @@
     "cert": false
   },
   {
+    "name": "Sherlock chain data (Etherscan)",
+    "url": "https://app.ocint.com/api/health",
+    "expect": ".intel_clients.chaindata != \"failing\"",
+    "show": "{chaindata: .intel_clients.chaindata}",
+    "only_when_up": true,
+    "cert": false
+  },
+  {
     "name": "Evidence Vault",
     "url": "https://vault.ocint.com/health",
     "expect": ".status == \"ok\"",
