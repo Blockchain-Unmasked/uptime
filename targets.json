@@ -22,6 +22,22 @@
     "cert": false
   },
   {
+    "name": "Sherlock attribution (TRM)",
+    "url": "https://app.ocint.com/api/health",
+    "expect": ".intel_clients.trm != \"failing\"",
+    "show": "{trm: .intel_clients.trm}",
+    "only_when_up": true,
+    "cert": false
+  },
+  {
+    "name": "Sherlock attribution (Scorechain)",
+    "url": "https://app.ocint.com/api/health",
+    "expect": ".intel_clients.scorechain != \"failing\"",
+    "show": "{scorechain: .intel_clients.scorechain}",
+    "only_when_up": true,
+    "cert": false
+  },
+  {
     "name": "Evidence Vault",
     "url": "https://vault.ocint.com/health",
     "expect": ".status == \"ok\"",
