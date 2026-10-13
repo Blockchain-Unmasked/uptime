@@ -11,6 +11,8 @@ The targets live in [`targets.json`](targets.json):
 | Sherlock app | `https://app.ocint.com/api/health` | 200, `status` is `ok`, `environment` is `production` |
 | Sherlock movement watcher | same | the watcher isn't `stale` (skipped while the app itself is down) |
 | Sherlock chain data (Etherscan) | same | `intel_clients.chaindata` isn't `failing`, meaning Etherscan's recent answers weren't errors such as a dead key (skipped while the app is down) |
+| Sherlock attribution (TRM) | same | `intel_clients.trm` isn't `failing`: TRM's recent answers weren't errors (a dead key, an outage, an unrecognized reply) |
+| Sherlock attribution (Scorechain) | same | `intel_clients.scorechain` isn't `failing` (our own hourly budget running out doesn't count) |
 | Evidence Vault | `https://vault.ocint.com/health` | 200, `status` is `ok` |
 | ocint.com | `https://ocint.com/` | 200 (turned off until the site is live) |
 | Sherlock staging | `https://staging.ocint.com/api/health` | 200, `environment` is `staging` (turned off until staging has this hostname) |
